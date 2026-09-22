@@ -365,3 +365,5 @@ https://gpm.nasa.gov/data
 https://github.com/Srujanmirji/MEGHA-DRISHTI
 
 > **Evidence rule for SIH submission.** Every numerical or technical claim should be either directly supported by a source, measured by the prototype, or explicitly labeled as a proposed target/assumption. Do not silently convert design intent into verified fact.
+
+<!-- build-trigger: v1.0 -->

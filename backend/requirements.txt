@@ -1,0 +1,13 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+numpy>=1.26
+scipy>=1.13
+xarray>=2024.6
+dask[array]>=2024.6
+zarr>=2.18
+pandas>=2.2
+pydantic>=2.8
+metpy>=1.6
+cfgrib>=0.9.14
+shapely>=2.0
+pytest>=8.2

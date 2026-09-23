@@ -118,24 +118,36 @@ export const WeatherMap: React.FC<WeatherMapProps> = ({
         style: {
           version: 8,
           sources: {
-            'carto-dark': {
+            'esri-dark-base': {
               type: 'raster',
               tiles: [
-                'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-                'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
-                'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
+                'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
               ],
               tileSize: 256,
-              attribution: '&copy; CartoDB &copy; OpenStreetMap',
+              attribution: '&copy; Esri &copy; OpenStreetMap contributors',
+            },
+            'esri-dark-reference': {
+              type: 'raster',
+              tiles: [
+                'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+              ],
+              tileSize: 256,
             },
           },
           layers: [
             {
-              id: 'carto-dark-layer',
+              id: 'esri-dark-base-layer',
               type: 'raster',
-              source: 'carto-dark',
+              source: 'esri-dark-base',
               minzoom: 0,
-              maxzoom: 19,
+              maxzoom: 16,
+            },
+            {
+              id: 'esri-dark-reference-layer',
+              type: 'raster',
+              source: 'esri-dark-reference',
+              minzoom: 0,
+              maxzoom: 16,
             },
           ],
         },
@@ -231,6 +243,8 @@ export const WeatherMap: React.FC<WeatherMapProps> = ({
         : [],
     };
 
+    const labelLayerId = map.getLayer('esri-dark-reference-layer') ? 'esri-dark-reference-layer' : undefined;
+
     if (map.getSource('footprint-source')) {
       (map.getSource('footprint-source') as maplibregl.GeoJSONSource).setData(footprintGeoJSON);
     } else {
@@ -247,7 +261,7 @@ export const WeatherMap: React.FC<WeatherMapProps> = ({
           'fill-color': '#C00000',
           'fill-opacity': 0.22,
         },
-      });
+      }, labelLayerId);
 
       map.addLayer({
         id: 'footprint-line',
@@ -258,7 +272,7 @@ export const WeatherMap: React.FC<WeatherMapProps> = ({
           'line-width': 2.5,
           'line-dasharray': [2, 2],
         },
-      });
+      }, labelLayerId);
     }
 
     // 2. Consensus Threat Track Line
@@ -295,7 +309,7 @@ export const WeatherMap: React.FC<WeatherMapProps> = ({
           'line-color': '#F28C28',
           'line-width': 3,
         },
-      });
+      }, labelLayerId);
     }
 
     // 3. 23 Member Spaghetti Tracks
@@ -333,7 +347,7 @@ export const WeatherMap: React.FC<WeatherMapProps> = ({
           'line-width': 1.2,
           'line-opacity': 0.45,
         },
-      });
+      }, labelLayerId);
     }
   }, [threat, members, interpolatedState, layers, mapLoaded]);
 

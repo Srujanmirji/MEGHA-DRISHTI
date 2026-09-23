@@ -3,6 +3,10 @@
 **Smart India Hackathon 2026 · Problem Statement 26078 · Team CodeX_2026**  
 **AI Extreme Weather Forecasting System for NCMRWF & IMD Forecasters**
 
+🌐 **Live Deployment:** [https://sih-phi-ashy.vercel.app](https://sih-phi-ashy.vercel.app)
+
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sih-phi-ashy.vercel.app)
+
 An interactive, production-quality mission-control workstation and scientific explainer for **MEGHA-DRISHTI**: an AI system that tracks extreme weather hazards (cyclones, heat domes, cold waves, extreme rain) in India's 10-day ensemble forecast (NEPS-G) and sharpens them to ~5 km resolution without averaging away critical localized peaks.
 
 ---

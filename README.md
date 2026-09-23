@@ -4,6 +4,10 @@
 
 **AI-driven spatio-temporal tracking and peak-preserving downscaling of extreme weather in medium-range forecasts.**
 
+🌐 **Live Prototype:** [https://sih-phi-ashy.vercel.app](https://sih-phi-ashy.vercel.app)
+
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sih-phi-ashy.vercel.app)
+
 MEGHA-DRISHTI is a research + prototype project for NCMRWF/IMD forecaster guidance. The system is designed to identify anomalous weather signals in medium-range ensemble forecasts, track them through time, preserve member-wise extremes, and produce high-resolution probabilistic guidance without collapsing uncertainty into a single ensemble mean.
 
 > Status: research prototype. Not an operational public-warning system.

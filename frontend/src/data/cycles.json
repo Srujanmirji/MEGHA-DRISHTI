@@ -1,0 +1,23 @@
+[
+  {
+    "id": "cycle-2020051500",
+    "name": "2020-05-15 00 UTC",
+    "timestamp": "2020-05-15T00:00:00Z",
+    "description": "Super Cyclone Amphan development & rapid intensification in central Bay of Bengal; landfall near Odisha / West Bengal coast.",
+    "activeThreatCount": 2
+  },
+  {
+    "id": "cycle-2024052400",
+    "name": "2024-05-24 00 UTC",
+    "timestamp": "2024-05-24T00:00:00Z",
+    "description": "Severe Cyclone Remal northern Bay tracking alongside severe NW Rajasthan Heat Dome (Thar Basin).",
+    "activeThreatCount": 3
+  },
+  {
+    "id": "cycle-2023120200",
+    "name": "2023-12-02 00 UTC",
+    "timestamp": "2023-12-02T00:00:00Z",
+    "description": "Cyclone Michaung coastal surge combined with persistent dense fog / cold wave over Indo-Gangetic Plains.",
+    "activeThreatCount": 2
+  }
+]

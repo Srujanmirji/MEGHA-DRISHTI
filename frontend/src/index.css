@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-color: #060B18;
+    --panel-color: #0B1426;
+    --panel-border: rgba(255, 255, 255, 0.08);
+  }
+
+  .light {
+    --bg-color: #F8FAFC;
+    --panel-color: #FFFFFF;
+    --panel-border: rgba(15, 23, 42, 0.1);
+  }
+
+  body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Glassmorphism panel styles */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.light .glass-panel:hover {
+  border-color: rgba(15, 23, 42, 0.18);
+}
+
+.glass-panel-glow {
+  background: rgba(11, 20, 38, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 112, 192, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 16px rgba(0, 112, 192, 0.05);
+}
+
+/* Subtle background noise texture */
+.bg-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(6, 11, 24, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 140, 40, 0.4);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Animated Pulsing Cyclone Marker */
+.cyclone-marker-container {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.cyclone-pulse-ring-1 {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(242, 140, 40, 0.7);
+  background: rgba(242, 140, 40, 0.2);
+  animation: cyclone-pulse 2s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+}
+
+.cyclone-pulse-ring-2 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(192, 0, 0, 0.85);
+  background: rgba(192, 0, 0, 0.25);
+  animation: cyclone-pulse 2s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+  animation-delay: 0.7s;
+}
+
+.cyclone-core-icon {
+  position: relative;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0B1426;
+  border: 2px solid #F28C28;
+  box-shadow: 0 0 16px rgba(242, 140, 40, 0.8), inset 0 0 8px rgba(192, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: cyclone-spin-ccw 3s linear infinite;
+}
+
+@keyframes cyclone-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.95;
+  }
+  60% {
+    transform: scale(1.6);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes cyclone-spin-ccw {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+

@@ -52,6 +52,10 @@ MEGHA-DRISHTI/
 │   ├── DATASETS.md
 │   ├── VALIDATION.md
 │   └── SIH_QA.md
+├── frontend/                           # Interactive Web Console & 3D Globe (React + Three.js + MapLibre)
+│   ├── src/
+│   ├── package.json
+│   └── README.md
 ├── backend/
 │   ├── app/
 │   └── requirements.txt
@@ -78,6 +82,16 @@ MEGHA-DRISHTI/
 - **Frontend target:** Next.js + MapLibre GL
 
 ## Quick start
+
+### Frontend (Interactive Web Console & 3D Globe)
+
+```bash
+cd frontend
+pnpm install
+pnpm dev
+```
+
+### Backend & Pipeline Service
 
 ```bash
 python -m venv .venv

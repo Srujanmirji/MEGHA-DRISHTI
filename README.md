@@ -1,132 +1,100 @@
-# MEGHA-DRISHTI
+# MEGHA-DRISHTI (मेघ-दृष्टि) — Web Prototype
 
-**SIH 2026 · Problem Statement 26078 · CodeX_2026**
+**Smart India Hackathon 2026 · Problem Statement 26078 · Team CodeX_2026**  
+**AI Extreme Weather Forecasting System for NCMRWF & IMD Forecasters**
 
-**AI-driven spatio-temporal tracking and peak-preserving downscaling of extreme weather in medium-range forecasts.**
-
-🌐 **Live Prototype:** [https://sih-phi-ashy.vercel.app](https://sih-phi-ashy.vercel.app)
+🌐 **Live Deployment:** [https://sih-phi-ashy.vercel.app](https://sih-phi-ashy.vercel.app)
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sih-phi-ashy.vercel.app)
 
-MEGHA-DRISHTI is a research + prototype project for NCMRWF/IMD forecaster guidance. The system is designed to identify anomalous weather signals in medium-range ensemble forecasts, track them through time, preserve member-wise extremes, and produce high-resolution probabilistic guidance without collapsing uncertainty into a single ensemble mean.
+An interactive, production-quality mission-control workstation and scientific explainer for **MEGHA-DRISHTI**: an AI system that tracks extreme weather hazards (cyclones, heat domes, cold waves, extreme rain) in India's 10-day ensemble forecast (NEPS-G) and sharpens them to ~5 km resolution without averaging away critical localized peaks.
 
-> Status: research prototype. Not an operational public-warning system.
+---
 
-## Core idea
+## 🚀 Key Features
 
-NCMRWF's global ensemble prediction system (NEPS-G) provides medium-range probabilistic forecasts at about 12 km horizontal resolution out to 10 days. A regional convective-scale ensemble (NEPS-R) provides much finer guidance, but over a much shorter horizon. MEGHA-DRISHTI explores a post-processing bridge for the medium-range window:
+### 1. Realistic 3D Earth & Convective Cyclone
+- **Atmospheric Rim Glow**: Custom Rayleigh scattering shader (`ShaderMaterial` on BackSide sphere) calculating view-angle Fresnel falloff ($(1 - \mathbf{n} \cdot \mathbf{v})^{3.4}$), rendering an authentic limb glow transitioning from deep sapphire blue `#0044F2` to vibrant cyan `#38BDF8`.
+- **Day/Night Terminator & Night City Lights**: Surface shader computing solar angle $\mathbf{n} \cdot \mathbf{l}_{\text{sun}}$ with a smooth terminator transition. Golden-amber city lights (Delhi-NCR, Mumbai, Kolkata, Bengaluru, Chennai, Hyderabad, Bangkok, Dubai) glow exclusively on the night hemisphere.
+- **Convective Cloud Layer**: Independent spherical mesh ($R = 1.472$) with procedural swirling fronts and ITCZ tropical convergence bands rotating at independent angular velocity.
+- **Physics-Informed Vortex**: Clear calm eye ($r_{\text{eye}} \approx 25\,\text{km}$) with dense, high-angular-velocity eyewall ($55\%$ particle density) and 3 spiral feeder bands maintaining 60 FPS.
 
-```text
-NEPS-G ensemble
-   ↓
-EFI / SOT anomaly detection
-   ↓
-4-D object tracking
-   ↓
-member-wise peak-preserving downscaling
-   ↓
-physics / consistency checks
-   ↓
-skill-aware probabilistic footprints
-   ↓
-FastAPI guidance service
-   ↓
-forecaster dashboard
-```
+### 2. Forecaster Mission Control Console (`/console`)
+- **MapLibre GL Workstation**: High-performance WebGL map with ESRI World Dark Gray Canvas styling, pan-India quick reset, and offline fallback.
+- **5 Toggleable Map Layers**:
+  1. *Alert Footprint*: Dynamic risk boundary calibrated to Fractions Skill Score (FSS).
+  2. *Consensus Track*: Steering track interpolated across 23 ensemble members.
+  3. *23 Member Spaghetti*: Individual realization tracks revealing track dispersion and bifurcations.
+  4. *EFI Anomaly Heatmap*: Continuous climatological anomaly field.
+  5. *Probability Envelope*: 90th percentile hazard corridor.
+- **Continuous Lead-Time Playback & Vertex Morphing**:
+  - `requestAnimationFrame` playback (0h–240h) at $1\times$ and $2\times$ speeds.
+  - Every vertex $\mathbf{v}_i$ of the alert polygon is interpolated continuously between 12h keyframes ($\mathbf{v}_i(t) = (1-\alpha)\mathbf{v}_{0,i} + \alpha \mathbf{v}_{1,i}$) so the alert footprint shrinks and shifts naturally without snapping.
+  - Dual-frequency pulsing shockwave marker anchored to dynamic coordinates.
+  - Keyboard shortcuts: `←` / `→` step 12 hours, `Space` toggles Play/Pause.
 
-## Prototype scope
+### 3. Ranked Threat Board Cards
+- **Hover Elevation**: Smooth card lift (`hover:-translate-y-1 hover:shadow-xl`).
+- **Illuminated Severity Edge**: Color-coded left edge strip (Red for Extreme Warning, Orange for Warning, Amber for Watch, Blue for Advisory).
+- **Embedded 10-Day EFI Sparklines**: Compact inline SVG sparkline showing full 10-day anomaly trend with peak indicator dot.
 
-The SIH pilot is deliberately narrow:
+### 4. 5-Tab Intelligence Dossier
+1. **Evidence**: Extreme Forecast Index (EFI), Shift of Tails (SOT), member consensus (21/23), exceedance probability, and 10-day Recharts EFI area chart.
+2. **23 Members**: 5×5 grid of member thumbnails with "12 km vs 5 km" and "Show Mean" toggles. Clicking any thumbnail opens an interactive split-slider before/after inspection modal.
+3. **Footprint**: FSS sizing basis explanation, spatial skill vs lead-time curve, and impacted administrative districts (Puri, Jagatsinghpur, Kendrapara, etc.).
+4. **Verification**: Kinetic energy power spectrum ($k^{-5/3}$), Tail Q-Q plot vs IPED observations, and reliability diagram labelled *"Illustrative until pilot results"*.
+5. **API**: Formatted GeoJSON guidance payload with one-click copy and JSON file download (WMO WIS 2.0 compliant).
 
-- Region: Bay of Bengal / east coast of India
-- Case study: Cyclone Amphan replay
-- Variables: precipitation, 10 m wind, mean sea-level pressure
-- Input: public/open fallback data for the runnable demo; NEPS-G/NEPS-R integration only where access is available
-- Output: research guidance for forecasters, not public alerts
+### 5. Full Bilingual Support (`EN / हिन्दी`)
+- Instant zero-reload toggle in top navigation.
+- High-fidelity Devanagari typography (`Noto Sans Devanagari`) across all threat cards, telemetry HUDs, lead-time controls, dossiers, and scientific notes.
 
-## Repository map
+### 6. Interactive Methodology Sandbox (`/method`)
+- Live dual-CDF shifting simulator demonstrating how ensemble shifts relative to the 20-year IMDAA M-climate yield EFI and Shift of Tails (SOT).
+- Authoritative documentation for NEPS-G, NEPS-R, IMDAA, and IPED datasets with direct DOI citations.
 
-```text
-MEGHA-DRISHTI/
-├── README.md
-├── docs/
-│   ├── RESEARCH_DOSSIER.md
-│   ├── SOURCES.md
-│   ├── ARCHITECTURE.md
-│   ├── DATASETS.md
-│   ├── VALIDATION.md
-│   └── SIH_QA.md
-├── frontend/                           # Interactive Web Console & 3D Globe (React + Three.js + MapLibre)
-│   ├── src/
-│   ├── package.json
-│   └── README.md
-├── backend/
-│   ├── app/
-│   └── requirements.txt
-├── megha_drishti/
-│   ├── ingest.py
-│   ├── extremes.py
-│   ├── tracking.py
-│   ├── downscale.py
-│   ├── footprints.py
-│   └── pipeline.py
-├── scripts/
-│   └── demo.py
-└── tests/
-    └── test_extremes.py
-```
+---
 
-## Technology stack
+## 🛠 Tech Stack
 
-- **4-D data:** xarray, Dask, Zarr
-- **Meteorology / numerics:** NumPy, SciPy, MetPy
-- **Downscaling research path:** PyTorch + NVIDIA PhysicsNeMo regional diffusion recipes
-- **API:** FastAPI
-- **Geospatial store (operational path):** PostgreSQL + PostGIS
-- **Frontend target:** Next.js + MapLibre GL
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Tailwind CSS + Devanagari Typography
+- **3D Graphics**: Three.js via `@react-three/fiber` & `@react-three/drei`
+- **Mapping**: MapLibre GL (`maplibre-gl`)
+- **Data Visualization**: Recharts + Custom HTML5 Canvas procedural generators
+- **Icons & Animation**: Lucide React + CSS keyframe animations
 
-## Quick start
+---
 
-### Frontend (Interactive Web Console & 3D Globe)
+## 💻 Getting Started
+
+### Prerequisites
+- Node.js (v18 or later)
+- `pnpm` (recommended) or `npm`
+
+### Installation & Run
 
 ```bash
+# Navigate to the frontend directory
 cd frontend
+
+# Install dependencies
 pnpm install
+
+# Start local development server
 pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
 ```
 
-### Backend & Pipeline Service
+---
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r backend/requirements.txt
+## ⚠️ Scientific & Operational Disclaimers
 
-python scripts/demo.py
-uvicorn backend.app.main:app --reload
-```
+- **DEMO DATA — illustrative**: Meteorological fields and cyclone trajectories are realistic simulations based on historical events (e.g. Cyclone Amphan replay) for demonstration purposes.
+- **Guidance for IMD forecasters — not a public warning**: This prototype generates high-resolution operational guidance for meteorologists to aid evacuation planning, not automated public alerts.
 
-The demo uses synthetic ensemble data so the repository runs without restricted NCMRWF archives.
-
-## Important scientific distinction
-
-The prototype does **not** claim that a downscaled field is a new deterministic truth. The system keeps ensemble members separate, measures anomaly / tail behavior, tracks coherent objects through time, and only then produces probabilistic guidance. Spatial alert footprints should widen or narrow according to demonstrated verification skill rather than being drawn as fixed high-resolution pins.
-
-## Research package
-
-See:
-
-- [38-section research dossier](docs/RESEARCH_DOSSIER.md)
-- [verified source library](docs/SOURCES.md)
-- [architecture](docs/ARCHITECTURE.md)
-- [datasets and access notes](docs/DATASETS.md)
-- [verification plan](docs/VALIDATION.md)
-- [judge / Q&A preparation](docs/SIH_QA.md)
-
-## SIH presentation
-
-The current SIH deck is maintained separately from the executable prototype. The repository documentation is written so every technical claim in the deck can be traced to a source or marked clearly as a proposed design choice.
-
-## License
-
-Research / hackathon prototype. Add the final team-selected open-source license before public reuse or deployment.

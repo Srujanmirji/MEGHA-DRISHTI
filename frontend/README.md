@@ -20,7 +20,7 @@ An interactive, production-quality mission-control workstation and scientific ex
 - **Physics-Informed Vortex**: Clear calm eye ($r_{\text{eye}} \approx 25\,\text{km}$) with dense, high-angular-velocity eyewall ($55\%$ particle density) and 3 spiral feeder bands maintaining 60 FPS.
 
 ### 2. Forecaster Mission Control Console (`/console`)
-- **MapLibre GL Workstation**: High-performance WebGL map with CARTO Dark Matter styling, pan-India quick reset, and offline fallback.
+- **MapLibre GL Workstation**: High-performance WebGL map with ESRI World Dark Gray Canvas styling, pan-India quick reset, and offline fallback.
 - **5 Toggleable Map Layers**:
   1. *Alert Footprint*: Dynamic risk boundary calibrated to Fractions Skill Score (FSS).
   2. *Consensus Track*: Steering track interpolated across 23 ensemble members.
